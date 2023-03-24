@@ -3,7 +3,7 @@
 RSpec.describe Httpbingo::Client do
   describe '.bearer' do
     it "returns unauthorized response" do
-      expect { subject.bearer }.to raise_error(Faraday::UnauthorizedError)
+      expect { subject.bearer }.to raise_error(Httpbingo::Unauthorized)
     end
 
     it "returns success response" do

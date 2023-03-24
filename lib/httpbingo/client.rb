@@ -17,6 +17,8 @@ module Httpbingo
       headers['Authorization'] = "Bearer #{token}" if token
       response = client.get('/bearer', {}, headers)
       JSON.parse(response.body, symbolize_names: true)
+    rescue Faraday::UnauthorizedError => e
+      raise Httpbingo::Unauthorized, e.message
     end
 
     def cache(if_modified_since = nil)
