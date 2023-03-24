@@ -23,4 +23,19 @@ RSpec.describe Httpbingo::Client do
       expect(response).to eql({})
     end
   end
+
+  describe '.status' do
+    it "returns success response" do
+      response = subject.status(200)
+      expect(response).to eql(status: 'ok')
+    end
+
+    it "fails with client error" do
+      expect { subject.status(404) }.to raise_error(Httpbingo::ClientError)
+    end
+
+    it "fails with server error" do
+      expect { subject.status(503) }.to raise_error(Httpbingo::ServerError)
+    end
+  end
 end
