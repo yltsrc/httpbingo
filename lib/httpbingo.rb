@@ -5,5 +5,4 @@ require_relative "httpbingo/client"
 
 module Httpbingo
   class Error < StandardError; end
-  # Your code goes here...
 end

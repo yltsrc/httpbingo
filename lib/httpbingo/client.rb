@@ -7,7 +7,16 @@ module Httpbingo
     attr_reader :client
 
     def initialize
-      @client = Faraday.new(url: 'http://httpbingo.org')
+      @client = Faraday.new(url: 'http://httpbingo.org') do |conn|
+        conn.response :raise_error
+      end
+    end
+
+    def bearer(token = nil)
+      headers = { 'Content-Type' => 'application/json' }
+      headers['Authorization'] = "Bearer #{token}" if token
+      response = client.get('/bearer', {}, headers)
+      JSON.parse(response.body, symbolize_names: true)
     end
 
     def cache(if_modified_since = nil)
