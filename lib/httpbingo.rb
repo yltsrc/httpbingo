@@ -8,4 +8,5 @@ module Httpbingo
   class ClientError < StandardError; end
   class ServerError < StandardError; end
   class Unauthorized < ClientError; end
+  UUID = Struct.new(:value)
 end

@@ -38,4 +38,12 @@ RSpec.describe Httpbingo::Client do
       expect { subject.status(503) }.to raise_error(Httpbingo::ServerError)
     end
   end
+
+  describe '.uuid' do
+    it "returns uuid" do
+      response = subject.uuid
+      expect(response).to be_an_instance_of(Httpbingo::UUID)
+      expect(response.value).to match(/\A(urn:uuid:)?[\da-f]{8}-([\da-f]{4}-){3}[\da-f]{12}\z/i)
+    end
+  end
 end

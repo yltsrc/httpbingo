@@ -53,5 +53,16 @@ module Httpbingo
         raise Httpbingo::Error, response.inspect
       end
     end
+
+    def uuid
+      response = client.get("/uuid")
+      case response.status
+      when 200
+        data = JSON.parse(response.body, symbolize_names: true)
+        Httpbingo::UUID.new(data[:uuid])
+      else
+        raise Httpbingo::Error, response.inspect
+      end
+    end
   end
 end
